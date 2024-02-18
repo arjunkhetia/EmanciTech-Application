@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,12 +8,29 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  // 👇️ notice that this function is not async
   useEffect(() => {
-    setTimeout(async () => {
-      // This tells the splash screen to hide immediately!
-      await SplashScreen.hideAsync();
+
+    // ✅ define the async function here
+    async function showApplication() {
+      if (appIsReady) {
+        // This tells the splash screen to hide immediately!
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    // Artificially delay for two seconds to simulate a slow loading
+    setTimeout(() => {
+      // Tell the application to render
+      setAppIsReady(true);
     }, 2000);
-  }, []);
+
+    // 👇️ call the function here
+    showApplication();
+
+  }, [appIsReady]);
 
   return (
     <View style={styles.container}>
