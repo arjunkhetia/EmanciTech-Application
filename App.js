@@ -9,6 +9,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 
   const [appIsReady, setAppIsReady] = useState(false);
+  const value = process.env.EXPO_PUBLIC_SECRET;
 
   // 👇️ notice that this function is not async
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>EmanciTech Application</Text>
+      <Text>Hello {value}!</Text>
       <StatusBar style="auto" />
     </View>
   );

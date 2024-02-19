@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "EmanciTech-Application",
-    "slug": "EmanciTech-Application",
+    "name": "EmanciTech",
+    "slug": "EmanciTech",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.arjunkhetia.emancitech"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9792a25c-120a-4832-985b-bca8fafcda6c"
+      }
     }
   }
 }
