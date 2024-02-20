@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -34,11 +35,13 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text style={styles.text}>EmanciTech Application</Text>
-      <Text>Hello {value}!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <Text style={styles.text}>EmanciTech Application</Text>
+        <Text>Hello {value}!</Text>
+        <StatusBar style="auto" />
+      </View>
+    </SafeAreaProvider>
   );
 }
 
@@ -50,7 +53,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontFamily: 'Brolink-Regular',
+    // fontFamily: 'Brolink-Regular',
+    fontFamily: Platform.select({
+      android: 'Brolink-Regular',
+      ios: 'Brolink-Outline',
+    }),
     fontSize: 15,
   },
 });
