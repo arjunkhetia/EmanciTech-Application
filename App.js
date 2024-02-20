@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform, useColorScheme } from 'react-native';
+import { StyleSheet, Text, View, Platform, Appearance } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import ThemeSwitch from './components/ThemeSwitch';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -22,7 +23,7 @@ export default function App() {
     'Sogtric-Regular': require('./assets/fonts/Sogtric-Regular.otf'),
     'Veltron-Regular': require('./assets/fonts/Veltron-Regular.ttf'),
   });
-  let colorScheme = useColorScheme();
+  let [colorScheme, setColorScheme] = useState(Appearance.getColorScheme() == 'light' ? false : true);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
@@ -40,7 +41,9 @@ export default function App() {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <Text style={styles.text}>EmanciTech Application</Text>
         <Text>Hello {value}!</Text>
-        <Text>Color Scheme: {colorScheme}</Text>
+        <Text>Current Color Scheme: {colorScheme}</Text>
+        <Text>{"\n"}</Text>
+        <ThemeSwitch value={colorScheme} onChange={() => setColorScheme(!colorScheme)}></ThemeSwitch>
         <StatusBar style="auto" />
       </View>
     </SafeAreaProvider>
