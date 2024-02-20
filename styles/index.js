@@ -14,12 +14,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
+  lighttext: {
     // fontFamily: 'Brolink-Regular',
-    fontFamily: Platform.select({
-      android: 'Brolink-Regular',
-      ios: 'Brolink-Outline',
-    }),
+    // fontFamily: Platform.select({
+    //   android: 'Brolink-Regular',
+    //   ios: 'Brolink-Outline',
+    // }),
     fontSize: 15,
+    color: theme.light.text,
+  },
+  darktext: {
+    fontSize: 15,
+    color: theme.dark.text,
   },
 });

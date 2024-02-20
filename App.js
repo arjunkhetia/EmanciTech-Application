@@ -40,12 +40,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
         <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
-          <Text style={styles.text}>EmanciTech Application</Text>
-          <Text>Hello {value}!</Text>
-          <Text>Current Color Scheme: {darkMode}</Text>
+          <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
+          <Text style={darkMode ? styles.darktext : styles.lighttext}>Hello {value}!</Text>
           <Text>{"\n"}</Text>
           <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch>
-          <StatusBar style="auto" />
+          <StatusBar style={darkMode ? 'light' : 'dark'} />
         </View>
     </SafeAreaProvider>
   );
