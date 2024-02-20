@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, useColorScheme } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -22,6 +22,7 @@ export default function App() {
     'Sogtric-Regular': require('./assets/fonts/Sogtric-Regular.otf'),
     'Veltron-Regular': require('./assets/fonts/Veltron-Regular.ttf'),
   });
+  let colorScheme = useColorScheme();
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
@@ -39,6 +40,7 @@ export default function App() {
       <View style={styles.container} onLayout={onLayoutRootView}>
         <Text style={styles.text}>EmanciTech Application</Text>
         <Text>Hello {value}!</Text>
+        <Text>Color Scheme: {colorScheme}</Text>
         <StatusBar style="auto" />
       </View>
     </SafeAreaProvider>

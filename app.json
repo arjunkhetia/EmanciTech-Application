@@ -3,9 +3,10 @@
     "name": "EmanciTech",
     "slug": "EmanciTech",
     "version": "1.0.0",
+    "description": "EmanciTech Application - React Native (Expo)",
     "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
