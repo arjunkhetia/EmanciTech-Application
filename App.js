@@ -1,41 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
-  const [appIsReady, setAppIsReady] = useState(false);
   const value = process.env.EXPO_PUBLIC_SECRET;
+  const [fontsLoaded, fontError] = useFonts({
+    'Brolink-Outline': require('./assets/fonts/Brolink-Outline.ttf'),
+    'Brolink-Regular': require('./assets/fonts/Brolink-Regular.ttf'),
+    'Informe-Bold': require('./assets/fonts/Informe-Bold.ttf'),
+    'Informe-Light': require('./assets/fonts/Informe-Light.ttf'),
+    'Informe-Medium': require('./assets/fonts/Informe-Medium.ttf'),
+    'Informe-Regular': require('./assets/fonts/Informe-Regular.ttf'),
+    'Sogtric-Outline': require('./assets/fonts/Sogtric-Outline.otf'),
+    'Sogtric-Regular': require('./assets/fonts/Sogtric-Regular.otf'),
+    'Veltron-Regular': require('./assets/fonts/Veltron-Regular.ttf'),
+  });
 
-  // 👇️ notice that this function is not async
-  useEffect(() => {
-
-    // ✅ define the async function here
-    async function showApplication() {
-      if (appIsReady) {
-        // This tells the splash screen to hide immediately!
-        await SplashScreen.hideAsync();
-      }
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      // This tells the splash screen to hide immediately!
+      await SplashScreen.hideAsync();
     }
+  }, [fontsLoaded, fontError]);
 
-    // Artificially delay for two seconds to simulate a slow loading
-    setTimeout(() => {
-      // Tell the application to render
-      setAppIsReady(true);
-    }, 2000);
-
-    // 👇️ call the function here
-    showApplication();
-
-  }, [appIsReady]);
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
-    <View style={styles.container}>
-      <Text>EmanciTech Application</Text>
+    <View style={styles.container} onLayout={onLayoutRootView}>
+      <Text style={styles.text}>EmanciTech Application</Text>
       <Text>Hello {value}!</Text>
       <StatusBar style="auto" />
     </View>
@@ -48,5 +48,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    fontFamily: 'Brolink-Regular',
+    fontSize: 15,
   },
 });

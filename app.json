@@ -8,12 +8,28 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Brolink-Outline.ttf",
+            "./assets/fonts/Brolink-Regular.ttf",
+            "./assets/fonts/Informe-Bold.ttf",
+            "./assets/fonts/Informe-Light.ttf",
+            "./assets/fonts/Informe-Medium.ttf",
+            "./assets/fonts/Informe-Regular.ttf",
+            "./assets/fonts/Sogtric-Outline.otf",
+            "./assets/fonts/Sogtric-Regular.otf",
+            "./assets/fonts/Veltron-Regular.ttf"
+          ]
+        }
+      ]
     ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "buildNumber": "1.0.0",
       "supportsTablet": true
@@ -25,6 +41,11 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.arjunkhetia.emancitech"
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff",
+      "translucent": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
