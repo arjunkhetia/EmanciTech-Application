@@ -1,5 +1,8 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet, Platform, PixelRatio } from "react-native";
 import { theme } from "./theme";
+
+const fontScale = PixelRatio.getFontScale();
+const getFontSize = size => size / fontScale;
 
 export const styles = StyleSheet.create({
   lightcontainer: {
@@ -20,11 +23,11 @@ export const styles = StyleSheet.create({
     //   android: 'Brolink-Regular',
     //   ios: 'Brolink-Outline',
     // }),
-    fontSize: 15,
+    fontSize: getFontSize(20),
     color: theme.light.text,
   },
   darktext: {
-    fontSize: 15,
+    fontSize: getFontSize(20),
     color: theme.dark.text,
   },
 });
