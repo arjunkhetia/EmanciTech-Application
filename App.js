@@ -9,7 +9,7 @@ import { styles } from './styles';
 import IntroSlider from './components/IntroSlider';
 
 // Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 

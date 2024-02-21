@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import AppIntroSlider from "react-native-app-intro-slider";
+import { Ionicons } from '@expo/vector-icons';
 
 const slides = [
   {
@@ -38,10 +39,49 @@ export default function IntroSlider() {
     );
   };
 
-  // AppIntroSlider Options: bottomButton, showSkipButton, showPrevButton
+  renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="arrow-forward"
+          color="rgba(255, 255, 255, 0.9)"
+          size={24}
+        />
+      </View>
+    );
+  };
+
+  renderPrevButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="arrow-back"
+          color="rgba(255, 255, 255, 0.9)"
+          size={24}
+        />
+      </View>
+    );
+  };
+
+  renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons name="checkmark" color="rgba(255, 255, 255, 0.9)" size={24} />
+      </View>
+    );
+  };
 
   return (
-    <AppIntroSlider renderItem={renderItem} data={slides} onDone={() => {}} showPrevButton />
+    <AppIntroSlider 
+      renderItem={renderItem} 
+      renderDoneButton={renderDoneButton}
+      renderNextButton={renderNextButton}
+      renderPrevButton={renderPrevButton}
+      dotStyle={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}
+      activeDotStyle={{backgroundColor: 'rgba(0, 255, 255, 0.9)'}}
+      data={slides} 
+      onDone={() => {}} 
+      showPrevButton />
   );
 }
 
@@ -64,5 +104,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     textAlign: "center",
+  },
+  buttonCircle: {
+    width: 44,
+    height: 44,
+    backgroundColor: 'rgba(0, 0, 0, .2)',
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
