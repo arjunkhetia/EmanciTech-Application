@@ -1,4 +1,5 @@
 import { StyleSheet, Platform, PixelRatio } from "react-native";
+import { colors } from "./colors";
 import { theme } from "./theme";
 
 const fontScale = PixelRatio.getFontScale();
@@ -18,7 +19,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   lighttext: {
-    // fontFamily: 'Brolink-Regular',
     // fontFamily: Platform.select({
     //   android: 'Brolink-Regular',
     //   ios: 'Brolink-Outline',
@@ -29,5 +29,36 @@ export const styles = StyleSheet.create({
   darktext: {
     fontSize: getFontSize(20),
     color: theme.dark.text,
+  },
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  slidertitle: {
+    fontFamily: 'Brolink-Regular',
+    fontSize: getFontSize(30),
+    color: colors.white,
+  },
+  sliderimage: {
+    width: 320,
+    height: 320,
+    resizeMode: 'contain',
+    marginVertical: 32,
+  },
+  slidertext: {
+    fontFamily: 'Informe-Regular',
+    fontSize: getFontSize(18),
+    color: colors.white,
+    textAlign: 'center',
+    lineHeight: 28,
+  },
+  sliderbutton: {
+    width: 44,
+    height: 44,
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
