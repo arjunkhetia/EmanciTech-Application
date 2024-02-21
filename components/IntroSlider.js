@@ -16,20 +16,34 @@ const slides = [
   {
     key: 2,
     title: "WebSite",
-    text: "Accelerate your business with website",
+    text: "Web Portal & Website Development",
     image: require("../assets/images/slide-2.gif"),
     backgroundColor: colors.purple,
   },
   {
     key: 3,
-    title: "Application",
+    title: "Mobile Application",
     text: "Mobile Application Development",
     image: require("../assets/images/slide-3.gif"),
     backgroundColor: colors.green,
   },
+  {
+    key: 4,
+    title: "Database",
+    text: "Database Management",
+    image: require("../assets/images/slide-4.png"),
+    backgroundColor: colors.blue,
+  },
+  {
+    key: 5,
+    title: "Responsive Design",
+    text: "Support All The Devices",
+    image: require("../assets/images/slide-5.gif"),
+    backgroundColor: colors.orange,
+  },
 ];
 
-export default function IntroSlider() {
+export default function IntroSlider(props) {
 
   renderItem = ({ item }) => {
     return (
@@ -86,7 +100,7 @@ export default function IntroSlider() {
       dotStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
       activeDotStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
       data={slides} 
-      onDone={() => {}} 
+      onDone={() => {props.onDone()}} 
       showPrevButton />
   );
 }

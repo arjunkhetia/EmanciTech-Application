@@ -7,9 +7,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ThemeSwitch from './components/ThemeSwitch';
 import { styles } from './styles';
 import IntroSlider from './components/IntroSlider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Keep the splash screen visible while we fetch resources
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
@@ -26,6 +27,18 @@ export default function App() {
     'Veltron-Regular': require('./assets/fonts/Veltron-Regular.ttf'),
   });
   let [darkMode, setDarkMode] = useState(Appearance.getColorScheme() == 'light' ? false : true);
+  const [showIntro, setShowIntro] = useState(false);
+
+  AsyncStorage.getItem('showIntro', (err, result) => {
+    if (!result) {
+      setShowIntro(true);
+    }
+  });
+
+  const onDoneSetShowIntro = () => {
+    AsyncStorage.setItem('showIntro', 'false');
+    setShowIntro(false);
+  };
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
@@ -40,14 +53,16 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <IntroSlider></IntroSlider>
-        {/* <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
+      {showIntro && <IntroSlider onDone={onDoneSetShowIntro}></IntroSlider>}
+      {!showIntro && 
+        <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>Hello {value}!</Text>
           <Text>{"\n"}</Text>
           <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch>
           <StatusBar style={darkMode ? 'light' : 'dark'} />
-        </View> */}
+        </View>
+      }
     </SafeAreaProvider>
   );
 }

@@ -39,6 +39,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'Brolink-Regular',
     fontSize: getFontSize(30),
     color: colors.white,
+    textAlign: 'center',
+    lineHeight: 35
   },
   sliderimage: {
     width: 320,
