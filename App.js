@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ThemeSwitch from './components/ThemeSwitch';
 import { styles } from './styles';
+import IntroSlider from './components/IntroSlider';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -39,13 +40,14 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-        <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
+      <IntroSlider></IntroSlider>
+        {/* <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>Hello {value}!</Text>
           <Text>{"\n"}</Text>
           <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch>
           <StatusBar style={darkMode ? 'light' : 'dark'} />
-        </View>
+        </View> */}
     </SafeAreaProvider>
   );
 }
