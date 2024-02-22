@@ -1,13 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Appearance } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { useFonts } from 'expo-font';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ThemeSwitch from './components/ThemeSwitch';
 import { styles } from './styles';
 import IntroSlider from './components/IntroSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFonts } from 'expo-font';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 
   const value = process.env.EXPO_PUBLIC_SECRET;
-  const [fontsLoaded, fontError] = useFonts({
+  const [fontsLoaded, fontsError] = useFonts({
     'Brolink-Outline': require('./assets/fonts/Brolink-Outline.ttf'),
     'Brolink-Regular': require('./assets/fonts/Brolink-Regular.ttf'),
     'Informe-Bold': require('./assets/fonts/Informe-Bold.ttf'),
@@ -29,33 +29,30 @@ export default function App() {
   let [darkMode, setDarkMode] = useState(Appearance.getColorScheme() == 'light' ? false : true);
   const [showIntro, setShowIntro] = useState(false);
 
-  AsyncStorage.getItem('showIntro', (err, result) => {
-    if (!result) {
-      setShowIntro(true);
-    }
-  });
-
   const onDoneSetShowIntro = () => {
-    AsyncStorage.setItem('showIntro', 'false');
+    // AsyncStorage.setItem('showIntro', 'false');
     setShowIntro(false);
   };
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      // This tells the splash screen to hide immediately!
-      await SplashScreen.hideAsync();
+  useEffect(() => {
+    if (fontsLoaded || fontsError) {
+      AsyncStorage.getItem('showIntro', (err, result) => {
+        if (!result) {
+          setShowIntro(true);
+        }
+        setTimeout(async () => {
+          // This tells the splash screen to hide immediately!
+          await SplashScreen.hideAsync();
+        }, 2000);
+      });
     }
-  }, [fontsLoaded, fontError]);
-
-  if (!fontsLoaded && !fontError) {
-    return null;
-  }
+  }, [fontsLoaded, fontsError]);
 
   return (
     <SafeAreaProvider>
       {showIntro && <IntroSlider onDone={onDoneSetShowIntro}></IntroSlider>}
       {!showIntro && 
-        <View style={darkMode ? styles.darkcontainer : styles.lightcontainer} onLayout={onLayoutRootView}>
+        <View style={darkMode ? styles.darkcontainer : styles.lightcontainer}>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>Hello {value}!</Text>
           <Text>{"\n"}</Text>
