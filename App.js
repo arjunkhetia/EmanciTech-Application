@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Appearance } from 'react-native';
+import { Text, View, Appearance, BackHandler, Alert } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ThemeSwitch from './components/ThemeSwitch';
@@ -48,6 +49,27 @@ export default function App() {
     }
   }, [fontsLoaded, fontsError]);
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to exit application?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <SafeAreaProvider>
       {showIntro && <IntroSlider onDone={onDoneSetShowIntro}></IntroSlider>}
@@ -58,6 +80,7 @@ export default function App() {
           <Text>{"\n"}</Text>
           <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch>
           <StatusBar style={darkMode ? 'light' : 'dark'} />
+          <StatusBar translucent={false} style={darkMode ? 'light' : 'dark'} />
         </View>
       }
     </SafeAreaProvider>
