@@ -18,4 +18,10 @@ export const colors = {
   dark_text: "#f0f0f0",
   light_highlight: "#ff7040",
   dark_highlight: "#ff9040",
+  gradient_blue: "#308AD8",
+  gradient_pink: "#C0598D",
+  // gradient_blue: "#3494E6",
+  // gradient_pink: "#EC6EAD",
+  // "#1B1B1D"
+  // "#282A36"
 };

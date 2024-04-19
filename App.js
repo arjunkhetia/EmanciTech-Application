@@ -1,6 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Appearance } from 'react-native';
 import { Text, View, Appearance, BackHandler, Alert } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -8,6 +7,7 @@ import ThemeSwitch from './components/ThemeSwitch';
 import { styles } from './styles';
 import IntroSlider from './components/IntroSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Login from './screens/Login';
 import { useFonts } from 'expo-font';
 
 // Keep the splash screen visible while we fetch resources
@@ -74,12 +74,12 @@ export default function App() {
     <SafeAreaProvider>
       {showIntro && <IntroSlider onDone={onDoneSetShowIntro}></IntroSlider>}
       {!showIntro && 
-        <View style={darkMode ? styles.darkcontainer : styles.lightcontainer}>
-          <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
+        <View style={darkMode ? styles.rootdarkcontainer : styles.rootlightcontainer}>
+          <Login></Login>
+          {/* <Text style={darkMode ? styles.darktext : styles.lighttext}>EmanciTech Application</Text>
           <Text style={darkMode ? styles.darktext : styles.lighttext}>Hello {value}!</Text>
           <Text>{"\n"}</Text>
-          <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch>
-          <StatusBar style={darkMode ? 'light' : 'dark'} />
+          <ThemeSwitch value={darkMode} onChange={() => setDarkMode(!darkMode)}></ThemeSwitch> */}
           <StatusBar translucent={false} style={darkMode ? 'light' : 'dark'} />
         </View>
       }
